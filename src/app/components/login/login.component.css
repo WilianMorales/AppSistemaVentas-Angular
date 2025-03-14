@@ -1,0 +1,40 @@
+.body {
+  display: flex;
+  justify-content: center;
+  height: 100dvh;
+  align-items: center;
+  background-color: rgba(21,114,183,255);
+}
+
+.loginCard {
+  max-width: 420px;
+  margin: 2em auto;
+  text-align: center;
+  max-height: 600px;
+}
+
+.header {
+  text-align: center;
+}
+
+.header img.logo {
+    display: block; /* Para que la imagen sea un bloque */
+    width: 65px; /* Ajusta el tamaño según lo necesites */
+    height: auto;
+    margin: 15px auto;
+}
+
+.header h2 {
+  text-align: center; /* Centra el título */
+  margin: 16px 0; /* Elimina el margen superior */
+}
+
+.full-width {
+  width: 90%;
+}
+
+@media (max-width: 767px) {
+  .loginCard {
+    max-width: 330px;
+  }
+}
