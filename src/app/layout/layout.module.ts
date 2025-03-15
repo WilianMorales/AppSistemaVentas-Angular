@@ -12,6 +12,7 @@ import { ProductoComponent } from './pages/producto/producto.component';
 import { VentaComponent } from './pages/venta/venta.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 import { HistorialVentaComponent } from './pages/historial-venta/historial-venta.component';
+import { ModalUsuarioComponent } from './modales/modal-usuario/modal-usuario.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HistorialVentaComponent } from './pages/historial-venta/historial-venta
     ProductoComponent,
     VentaComponent,
     ReporteComponent,
-    HistorialVentaComponent
+    HistorialVentaComponent,
+    ModalUsuarioComponent
   ],
   imports: [
     CommonModule,

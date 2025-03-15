@@ -1,0 +1,19 @@
+mat-form-field {
+  width: 100%;
+  margin: 10px 10px;
+}
+
+form {
+  width: 250px;
+}
+
+@media (min-width: 768px) {
+
+  mat-dialog-content {
+      max-height: 80vh !important;
+  }
+
+  form {
+    width: 450px;
+  }
+}
