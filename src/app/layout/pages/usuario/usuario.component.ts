@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import { ModalUsuarioComponent } from '../../modales/modal-usuario/modal-usuario
 import { Usuario } from 'src/app/data/interfaces/usuario';
 import { UsuarioService } from 'src/app/data/services/usuario.service';
 import { UtilidadService } from 'src/app/shared/utilidad.service';
+import { MatSort } from '@angular/material/sort';
 
 import Swal from 'sweetalert2';
 
@@ -16,11 +17,12 @@ import Swal from 'sweetalert2';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
-export class UsuarioComponent implements OnInit, AfterContentInit {
+export class UsuarioComponent implements OnInit, AfterViewInit {
 
   columnasTabla: string[] = ['nombre', 'email', 'rolDescripcion', 'estado', 'acciones']
   dataListaUsuario = new MatTableDataSource;
   @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private _dialog: MatDialog,
@@ -32,8 +34,9 @@ export class UsuarioComponent implements OnInit, AfterContentInit {
     this.obtenerUsuario();
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.dataListaUsuario.paginator = this.paginacionTabla;
+    this.dataListaUsuario.sort = this.sort;
   }
 
   obtenerUsuario() {
