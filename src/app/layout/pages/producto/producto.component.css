@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Estilo para toda la fila */
+.no-data-row {
+  color: #972631; /* Color de texto oscuro para contraste */
+}
+
+/* Estilo para las celdas específicas */
+.no-data-cell {
+  font-weight: bold; /* Negrita para llamar la atención */
+  font-size: 14px; /* Ajustar el tamaño de fuente */
+  padding: 16px; /* Espaciado para que el contenido respire */
+}
+
+.mat-column-acciones {
+  width: 150px; /* Ajusta el valor según tus preferencias */
+}
