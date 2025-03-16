@@ -100,10 +100,14 @@ export class VentaComponent implements OnInit, OnDestroy {
     const valorBuscado = typeof busqueda === 'string'
       ? busqueda.toLocaleLowerCase()
       : busqueda?.nombre?.toLocaleLowerCase() || '';
-    // Filtrar productos por nombre y categoría
+
+    // Filtramos productos por nombre, categoría y estado (excluyendo los agotados)
     return this.listaProductos.filter(item =>
-      item.nombre.toLowerCase().includes(valorBuscado)
-      || item.descripcionCategoria?.toLowerCase().includes(valorBuscado)
+      (item.esActivo !== 0) &&
+      (
+        item.nombre.toLowerCase().includes(valorBuscado) ||
+        item.descripcionCategoria?.toLowerCase().includes(valorBuscado)
+      )
     );
   }
 
@@ -177,6 +181,30 @@ export class VentaComponent implements OnInit, OnDestroy {
       this.totalPagar = 0;
     }
   }
+  private actualizarStockProductos(): void {
+    this.listaProductosVenta.forEach(productoVenta => {
+      const producto = this.listaProductos.find(p => p.idProducto === productoVenta.idProducto);
+      if (producto) {
+        // Reducimos el stock del producto y Garantiza que no sea negativo
+        producto.stock = Math.max(producto.stock - productoVenta.cantidad, 0);
+
+        // Si el stock es 0, cambiamos el estado del producto a "agotado"
+        if (producto.stock === 0) {
+          producto.esActivo = 0;
+        }
+
+        // Llamada al servicio para actualizar el producto en el backend
+        this._productoService.editarProducto(producto).subscribe({
+          next: () => {
+            this._utilidadService.mostrarAlerta('Stock actualizado del producto.', 'Éxito');
+          },
+          error: (err) => {
+            this._utilidadService.mostrarAlerta('Hubo un error al actualizar algunos productos.', 'Error');
+          }
+        });
+      }
+    })
+  }
 
   registrarVenta() {
     if (this.listaProductosVenta.length > 0) {
@@ -201,6 +229,9 @@ export class VentaComponent implements OnInit, OnDestroy {
       ).subscribe({
         next: (data) => {
           if (data.status) {
+            // Actualizar stock y estado de los productos
+            this.actualizarStockProductos();
+
             // Si la venta es exitosa, limpiamos los productos y el total
             this.totalPagar = 0.00;
             this.listaProductosVenta = [];
