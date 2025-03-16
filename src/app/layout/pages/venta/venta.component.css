@@ -1,0 +1,9 @@
+/* En tu archivo de estilos globales o en el CSS del componente */
+
+.full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
