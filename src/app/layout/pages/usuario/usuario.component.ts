@@ -55,8 +55,8 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   aplicarFiltroTabla(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaUsuario.filter = filterValue.trim().toLocaleLowerCase();;
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataListaUsuario.filter = filterValue;
   }
 
   nuevoUsuario() {

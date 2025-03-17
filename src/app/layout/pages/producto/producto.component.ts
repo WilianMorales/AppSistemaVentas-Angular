@@ -55,8 +55,8 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   }
 
   aplicarFiltroTabla(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataListaProducto.filter = filterValue.trim().toLocaleLowerCase();;
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataListaProducto.filter = filterValue;
   }
 
   nuevoProducto() {
