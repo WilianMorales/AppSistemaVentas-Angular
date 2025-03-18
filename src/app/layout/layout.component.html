@@ -9,10 +9,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container>
-  <mat-sidenav #sidenav opened="true" mode="side" style="width: 200px;">
+<mat-sidenav-container style="height: 100vh;">
+  <mat-sidenav #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile && isOpened"
+    style="width: 250px;">
     <mat-nav-list>
-
       <mat-list-item routerLink="/pages/dashboard">
         <mat-icon matListItemIcon>dashboard</mat-icon>
         <div mat-line>DashBoard</div>
@@ -37,13 +39,11 @@
         <mat-icon matListItemIcon>receipt</mat-icon>
         <div mat-line>Reportes</div>
       </mat-list-item>
-
     </mat-nav-list>
-
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div style="height: 90dvh;">
+    <div style="flex-grow: 1;">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
