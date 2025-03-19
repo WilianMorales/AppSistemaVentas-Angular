@@ -1,0 +1,37 @@
+.campos-formulario{
+  display: flex;
+  align-items: flex-start;
+}
+
+.btn-buscar{
+  width: 150px;
+  margin-top: 15px;
+  margin-bottom:  15px;
+}
+
+.input-filter{
+  width: 100px;
+  font-size: 14px;
+}
+
+table{
+  width: 100%;
+  font-size: 14px;
+}
+
+.mat-mdc-form-field  {
+  width: 25%;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .campos-formulario{
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .mat-mdc-form-field  {
+    width: 100%;
+    margin-right: 10px;
+  }
+}

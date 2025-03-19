@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../material/material.module';
 
@@ -14,6 +14,7 @@ import { ReporteComponent } from './pages/reporte/reporte.component';
 import { HistorialVentaComponent } from './pages/historial-venta/historial-venta.component';
 import { ModalUsuarioComponent } from './modales/modal-usuario/modal-usuario.component';
 import { ModalProductoComponent } from './modales/modal-producto/modal-producto.component';
+import { ModalDetalleVentaComponent } from './modales/modal-detalle-venta/modal-detalle-venta.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +26,14 @@ import { ModalProductoComponent } from './modales/modal-producto/modal-producto.
     ReporteComponent,
     HistorialVentaComponent,
     ModalUsuarioComponent,
-    ModalProductoComponent
+    ModalProductoComponent,
+    ModalDetalleVentaComponent
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     MaterialModule
   ]
 })

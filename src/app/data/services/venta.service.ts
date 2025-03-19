@@ -22,20 +22,20 @@ export class VentaService {
   obtenerHistorial(
     buscarPor: string,
     numeroVenta: string,
-    fechaIncio: string,
+    fechaInicio: string,
     fechaFin: string
   ): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(
-      `${this._urlApi}historial?buscarPor=${buscarPor}&numeroVenta=${numeroVenta}&fechaIncio=${fechaIncio}&fechaFin=${fechaFin}`
+      `${this._urlApi}historial?buscarPor=${buscarPor}&numeroVenta=${numeroVenta}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
     );
   }
 
   obtenerReporte(
-    fechaIncio: string,
+    fechaInicio: string,
     fechaFin: string
   ): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(
-      `${this._urlApi}reporte?fechaIncio=${fechaIncio}&fechaFin=${fechaFin}`
+      `${this._urlApi}reporte?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
     );
   }
 
