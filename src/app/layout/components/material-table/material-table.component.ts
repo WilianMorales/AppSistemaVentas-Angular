@@ -30,11 +30,7 @@ export class MaterialTableComponent implements OnInit, OnChanges, AfterViewInit 
 
   @Input() currentFilterValue: string = '';  // Recibimos el valor del filtro desde el componente padre
 
-  @Input() actionButtons: ActionButton[] = [
-    { action: TABLE_ACTION.EDIT, label: 'Editar', icon: 'edit', color: 'primary' },
-    { action: TABLE_ACTION.VIEW, label: 'Ver Detalle', icon: 'visibility', color: "primary" },
-    { action: TABLE_ACTION.DELETE, label: 'Eliminar', icon: 'delete', color: "warn" }
-  ];
+  @Input() actionButtons: ActionButton[] = [];
 
   // Usar setters para las entradas
   @Input() set data(data: any[]) {

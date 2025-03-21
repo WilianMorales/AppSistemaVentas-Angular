@@ -37,7 +37,7 @@
         <td mat-cell *matCellDef="let element">
           <ng-container *ngFor="let action of actionButtons" style="width: 80px">
             <!-- Verificar si 'action' tiene una acción válida antes de mostrar el botón -->
-            <button mat-icon-button [color]="action.color" *ngIf="action?.action && action.action.trim() !== 'view'" (click)="onAction(action.action, element)">
+            <button mat-icon-button [color]="action.color" (click)="onAction(action.action, element)">
               <mat-icon>{{ action.icon }}</mat-icon>
             </button>
           </ng-container>
