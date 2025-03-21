@@ -17,6 +17,7 @@ import { ModalProductoComponent } from './modales/modal-producto/modal-producto.
 import { ModalDetalleVentaComponent } from './modales/modal-detalle-venta/modal-detalle-venta.component';
 import { MaterialTableComponent } from './components/material-table/material-table.component';
 import { ColumnValuePipe } from './components/material-table/column-value.pipe';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ColumnValuePipe } from './components/material-table/column-value.pipe';
     ModalProductoComponent,
     ModalDetalleVentaComponent,
     MaterialTableComponent,
-    ColumnValuePipe
+    ColumnValuePipe,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
