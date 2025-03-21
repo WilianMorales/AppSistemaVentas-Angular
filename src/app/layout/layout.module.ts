@@ -15,6 +15,8 @@ import { HistorialVentaComponent } from './pages/historial-venta/historial-venta
 import { ModalUsuarioComponent } from './modales/modal-usuario/modal-usuario.component';
 import { ModalProductoComponent } from './modales/modal-producto/modal-producto.component';
 import { ModalDetalleVentaComponent } from './modales/modal-detalle-venta/modal-detalle-venta.component';
+import { MaterialTableComponent } from './components/material-table/material-table.component';
+import { ColumnValuePipe } from './components/material-table/column-value.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ModalDetalleVentaComponent } from './modales/modal-detalle-venta/modal-
     HistorialVentaComponent,
     ModalUsuarioComponent,
     ModalProductoComponent,
-    ModalDetalleVentaComponent
+    ModalDetalleVentaComponent,
+    MaterialTableComponent,
+    ColumnValuePipe
   ],
   imports: [
     CommonModule,
