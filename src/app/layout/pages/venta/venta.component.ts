@@ -16,6 +16,10 @@ import { DetalleVenta } from 'src/app/data/interfaces/detalle-venta';
 import { ResponseApi } from 'src/app/data/interfaces/response-api';
 
 import Swal from 'sweetalert2';
+import { TableColumn } from '../../components/material-table/table-column.model.';
+import { ActionButton } from '../../components/material-table/material-table.component';
+import { TABLE_ACTION } from '../../components/material-table/table-actions.enum';
+import { TableAction } from '../../components/material-table/table-actions.model';
 
 @Component({
   selector: 'app-venta',
@@ -37,10 +41,24 @@ export class VentaComponent implements OnInit, OnDestroy {
 
   formProductoVenta: FormGroup;
 
-  private destroy$ = new Subject<void>();  // Usado para la limpieza de las suscripciones
+  columnasTabla: TableColumn[] = [
+    { def: 'producto', label: 'Producto', dataKey: 'descripcionProducto' },
+    { def: 'cantidad', label: 'Cant.', dataKey: 'cantidad' },
+    { def: 'precio', label: 'Precio', dataKey: 'precioTexto' },
+    { def: 'total', label: 'Total', dataKey: 'totalTexto' }
+  ];
 
-  columnasTabla: string[] = ['producto', 'cantidad', 'precio', 'total', 'accion'];
+  actions: ActionButton[] = [
+      { action: TABLE_ACTION.DELETE, label: 'delete', icon: 'delete', color: 'warn' }
+  ];
+
+  tableConfig = {
+    showActions: true,
+  };
+
   datosDetalleVenta = new MatTableDataSource(this.listaProductosVenta);
+
+  private destroy$ = new Subject<void>();  // Usado para la limpieza de las suscripciones
 
   constructor(
     private _fb: FormBuilder,
@@ -162,6 +180,16 @@ export class VentaComponent implements OnInit, OnDestroy {
       cantidad: ''
     })
   }
+
+  onAction(event: TableAction): void {
+      switch (event.action) {
+        case TABLE_ACTION.DELETE:
+          this.eliminarProducto(event.row);
+          break;
+        default:
+          break;
+      }
+    }
 
   eliminarProducto(detalle: DetalleVenta): void {
     // Restamos el valor total del producto de la cantidad total a pagar

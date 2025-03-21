@@ -17,7 +17,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modal-usuario.component.css']
 })
 export class ModalUsuarioComponent implements OnInit {
-
   formUsuario: FormGroup = this._fb.group({
     nombre: ['', [Validators.required, Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
@@ -58,7 +57,6 @@ export class ModalUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.dataUsuario != null) {
       this.formUsuario.patchValue({
         nombre: this.dataUsuario.nombre,
@@ -71,7 +69,6 @@ export class ModalUsuarioComponent implements OnInit {
   }
 
   guardarEditar_Usuario() {
-
     const _usuario: Usuario = {
       idUsuario: this.dataUsuario == null ? 0 : this.dataUsuario.idUsuario,
       nombre: this.formUsuario.value.nombre,

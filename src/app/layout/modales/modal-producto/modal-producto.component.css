@@ -9,10 +9,6 @@ form {
 
 @media (min-width: 768px) {
 
-  mat-dialog-content {
-      max-height: 80vh !important;
-  }
-
   form {
     width: 450px;
   }

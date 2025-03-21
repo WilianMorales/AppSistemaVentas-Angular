@@ -1,0 +1,4 @@
+<mat-form-field *ngIf="showFilter">
+  <mat-label>Buscar</mat-label>
+  <input matInput (keyup)="onFilterChange($event)" #input />
+</mat-form-field>

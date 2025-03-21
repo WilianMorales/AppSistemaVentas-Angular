@@ -16,7 +16,6 @@ export interface ActionButton {
   color: string;
 }
 
-
 @Component({
   selector: 'app-material-table',
   templateUrl: './material-table.component.html',
@@ -28,6 +27,7 @@ export class MaterialTableComponent implements OnInit, OnChanges, AfterViewInit 
   tableColumns: TableColumn[] = [];
   tableConfig?: TableConfig;
 
+  @Input() showNoDataRow: boolean = false;
   @Input() currentFilterValue: string = '';  // Recibimos el valor del filtro desde el componente padre
 
   @Input() actionButtons: ActionButton[] = [];
@@ -65,10 +65,7 @@ export class MaterialTableComponent implements OnInit, OnChanges, AfterViewInit 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
-      console.log('Ordenando por:', sortHeaderId, ' - Valor:', this.getValue(data, sortHeaderId));
-
       const value = this.getValue(data, sortHeaderId);
-
       return typeof value === 'string' || typeof value === 'number' ? value : '';
     };
 

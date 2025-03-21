@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ModalProductoComponent } from '../../modales/modal-producto/modal-producto.component';
@@ -9,20 +8,45 @@ import { Producto } from 'src/app/data/interfaces/producto';
 import { ProductoService } from 'src/app/data/services/producto.service';
 import { UtilidadService } from 'src/app/shared/utilidad.service';
 
+import { TableColumn } from '../../components/material-table/table-column.model.';
+import { TableAction } from '../../components/material-table/table-actions.model';
+import { TABLE_ACTION } from '../../components/material-table/table-actions.enum';
+
 import Swal from 'sweetalert2';
-import { MatSort, SortDirection } from '@angular/material/sort';
+import { finalize, delay } from 'rxjs';
+import { ActionButton } from '../../components/material-table/material-table.component';
 
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.css']
 })
-export class ProductoComponent implements OnInit, AfterViewInit {
+export class ProductoComponent implements OnInit {
 
-  columnasTabla: string[] = ['nombre', 'categoria', 'stock', 'precio', 'estado', 'acciones']
-  dataListaProducto = new MatTableDataSource;
-  @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  showFilter: boolean = true;  // Controla si se muestra el filtro
+  currentFilterValue: string = '';  // Valor actual del filtro
+
+  dataListaProducto = new MatTableDataSource<Producto>();
+  isLoading: boolean = true;
+
+  columnasTabla: TableColumn[] = [
+    { def: 'nombre', label: 'Nombre', dataKey: 'nombre' },
+    { def: 'descripcionCategoria', label: 'Categoría', dataKey: 'descripcionCategoria' },
+    { def: 'stock', label: 'Stock', dataKey: 'stock' },
+    { def: 'precio', label: 'Precio', dataKey: 'precio' },
+    { def: 'esActivo', label: 'Activo', dataKey: 'esActivo' }
+  ]
+
+  actions: ActionButton[] = [
+      { action: TABLE_ACTION.EDIT, label: 'Editar', icon: 'edit', color: 'primary'},
+      { action: TABLE_ACTION.DELETE, label: 'Eliminar', icon: 'delete', color: 'warn' }
+    ];
+
+  tableConfig = {
+    showFilter: true,
+    isPaginable: true,
+    showActions: true,
+  };
 
   constructor(
     private _dialog: MatDialog,
@@ -34,54 +58,60 @@ export class ProductoComponent implements OnInit, AfterViewInit {
     this.obtenerProductos();
   }
 
-  ngAfterViewInit(): void {
-    this.dataListaProducto.paginator = this.paginacionTabla;
-    this.dataListaProducto.sort = this.sort;
+  aplicarFiltroTabla(filterValue: string): void {
+    this.currentFilterValue = filterValue;
   }
 
   obtenerProductos(): void {
-    this._productoService.getAllProductos().subscribe({
-      next: (data) => {
-        if (data.status) {
-          this.dataListaProducto.data = data.value;
-        } else {
-          Swal.fire('Oops!', 'No se encontraron datos', 'error');
-        }
-      },
-      error: (error) => {
-        this._utilidadService.mostrarAlerta('Hubo un error al obtener los productos', 'error');
-      }
-    });
-  }
 
-  aplicarFiltroTabla(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataListaProducto.filter = filterValue;
+    this._productoService.getAllProductos()
+     .pipe(
+        delay(1000),
+        finalize(() => (this.isLoading = false))
+      )
+      .subscribe({
+        next: (data) => {
+          if (data.status) {
+            this.dataListaProducto.data = data.value;
+          } else {
+            Swal.fire('Oops!', 'No se encontraron datos', 'error');
+          }
+        },
+        error: () => {
+          this._utilidadService.mostrarAlerta('Hubo un error al obtener los productos', 'error');
+        }
+      });
   }
 
   nuevoProducto() {
-    const dialogRef = this._dialog.open(ModalProductoComponent, {
-      disableClose: true, // No permite cerrar el diálogo haciendo clic fuera
-    });
+    this._dialog.open(ModalProductoComponent, {
+      disableClose: true,
+    })
+      .afterClosed()
+      .subscribe((resultado) => resultado && this.obtenerProductos());
+  }
 
-    // Maneja el resultado cuando el diálogo se cierra
-    dialogRef.afterClosed().subscribe(resultado => {
-      if (resultado === true) {
-        this.obtenerProductos();
-      }
-    });
+  // Maneja las acciones de la tabla
+  onAction(event: TableAction): void {
+    switch (event.action) {
+      case TABLE_ACTION.EDIT:
+        this.editarProducto(event.row);
+        break;
+      case TABLE_ACTION.DELETE:
+        this.eliminarProducto(event.row);
+        break;
+      default:
+        break;
+    }
   }
 
   editarProducto(producto: Producto) {
     this._dialog.open(ModalProductoComponent, {
       data: producto,
       disableClose: true,
-    }).afterClosed()
-      .subscribe(resultado => {
-        if (resultado === true) {
-          this.obtenerProductos();
-        }
-      });
+    })
+      .afterClosed()
+      .subscribe((resultado) => resultado && this.obtenerProductos());
   }
 
   eliminarProducto(_producto: Producto) {
@@ -98,14 +128,13 @@ export class ProductoComponent implements OnInit, AfterViewInit {
       if (res.isConfirmed) {
         this._productoService.eliminarProducto(_producto.idProducto).subscribe({
           next: (data) => {
-            if (data.status) {
-              this._utilidadService.mostrarAlerta('El producto fue eliminado', 'Success!');
-              this.obtenerProductos();
-            } else {
-              this._utilidadService.mostrarAlerta('No se pudo eliminar el producto', 'Error');
-            }
+            this._utilidadService.mostrarAlerta(
+              data.status ? 'El producto fue eliminado' : 'No se pudo eliminar el producto',
+              data.status ? 'Success!' : 'Error'
+            );
+            if (data.status) this.obtenerProductos();
           },
-          error: (error) => {
+          error: () => {
             this._utilidadService.mostrarAlerta('Hubo un error al eliminar el producto', 'Error');
           }
         });

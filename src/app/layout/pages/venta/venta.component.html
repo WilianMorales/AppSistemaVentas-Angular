@@ -19,7 +19,7 @@
 
         <mat-form-field style="width: 60%; margin-left: 30px;">
           <mat-label>Cantidad</mat-label>
-          <input matInput type="number" formControlName="cantidad">
+          <input matInput type="number" formControlName="cantidad" [min]="1">
         </mat-form-field>
 
         <button mat-raised-button color="primary" class="mat-btn" [disabled]="formProductoVenta.invalid">
@@ -39,49 +39,18 @@
       </mat-form-field>
 
       <button mat-raised-button color="accent" class="mat-btn">
-        Total: S/. {{ totalPagar.toFixed(2) }}
+        Total: {{ totalPagar | currency: '&#83;&#47;&#46;' }}
       </button>
 
     </div>
 
-    <mat-table [dataSource]="datosDetalleVenta" class="mat-elevation-z8">
-      <!-- Producto Column -->
-      <ng-container matColumnDef="producto">
-        <mat-header-cell *matHeaderCellDef>Producto</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.descripcionProducto }} </mat-cell>
-      </ng-container>
-
-      <!-- Cantidad Column -->
-      <ng-container matColumnDef="cantidad">
-        <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.cantidad }} </mat-cell>
-      </ng-container>
-
-      <!-- Precio Column -->
-      <ng-container matColumnDef="precio">
-        <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.precioTexto }} </mat-cell>
-      </ng-container>
-
-      <!-- Total Column -->
-      <ng-container matColumnDef="total">
-        <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{ element.totalTexto }} </mat-cell>
-      </ng-container>
-
-      <!-- Acciones Column -->
-      <ng-container matColumnDef="accion">
-        <mat-header-cell *matHeaderCellDef style="width: 80px"></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <button mat-icon-button color="warn" (click)="eliminarProducto(element)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="columnasTabla"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnasTabla;"></mat-row>
-    </mat-table>
+    <app-material-table
+      [data]="datosDetalleVenta.data"
+      [columns]="columnasTabla"
+      [config]="tableConfig"
+      [actionButtons]="actions"
+      (action)="onAction($event)"
+    ></app-material-table>
 
     <button mat-raised-button color="primary" class="btn-registrar"
       [disabled]="bloquearBoton === true || listaProductosVenta.length < 1" (click)="registrarVenta()">

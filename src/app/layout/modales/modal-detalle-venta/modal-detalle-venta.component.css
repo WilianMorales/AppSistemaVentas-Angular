@@ -1,23 +1,27 @@
-table{
-  width: 100%;
+h2{
+  margin: 0;
 }
 
-mat-form-field {
-  width: 100%;
-  margin: 10px 10px;
+.campos-formulario{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 10px;
 }
 
-form {
-  width: 250px;
+.mat-mdc-form-field  {
+  width: 100%;
+  margin-right: 10px;
 }
 
 @media (min-width: 768px) {
-
-  mat-dialog-content {
-      max-height: 80vh !important;
+  .campos-formulario{
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
-  form {
-    width: 450px;
+  .mat-mdc-form-field{
+    width: 30%;
+    margin-left: 0px !important;
   }
 }

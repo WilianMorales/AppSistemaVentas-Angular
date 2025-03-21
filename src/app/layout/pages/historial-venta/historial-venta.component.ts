@@ -1,7 +1,6 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import * as moment from 'moment';
@@ -10,6 +9,10 @@ import { ModalDetalleVentaComponent } from '../../modales/modal-detalle-venta/mo
 import { Venta } from 'src/app/data/interfaces/venta';
 import { VentaService } from 'src/app/data/services/venta.service';
 import { UtilidadService } from 'src/app/shared/utilidad.service';
+import { TableAction } from '../../components/material-table/table-actions.model';
+import { TABLE_ACTION } from '../../components/material-table/table-actions.enum';
+import { TableColumn } from '../../components/material-table/table-column.model.';
+import { ActionButton } from '../../components/material-table/material-table.component';
 
 export const MY_DATA_FORMATS = {
   parse: {
@@ -29,16 +32,34 @@ export const MY_DATA_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATA_FORMATS }
   ]
 })
-export class HistorialVentaComponent implements OnInit, AfterViewInit {
+export class HistorialVentaComponent implements OnInit {
   formBusqueda: FormGroup;
+  showFilter: boolean = true;  // Controla si se muestra el filtro
+  currentFilterValue: string = '';  // Valor actual del filtro
+  // dataInicio: Venta[] = [];
+  datosListaVenta = new MatTableDataSource<Venta>([]);
+
   opcionesBusqueda = [
     { value: "fecha", descripcion: "Por fechas" },
     { value: "numeroVenta", descripcion: "Numero venta" }
   ];
-  columnasTabla: string[] = ['fechaRegistro', 'numeroDocumento', 'tipoPago', 'total', 'accion'];
-  // dataInicio: Venta[] = [];
-  datosListaVenta = new MatTableDataSource<Venta>([]);
-  @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
+
+  columnasTabla: TableColumn[] = [
+    { def: 'fechaRegistro', label: 'Fecha Registro', dataKey: 'fechaRegistro' },
+    { def: 'numeroDocumento', label: 'Numero Documento', dataKey: 'numeroDocumento' },
+    { def: 'tipoPago', label: 'Tipo Pago', dataKey: 'tipoPago' },
+    { def: 'total', label: 'Total', dataKey: 'totalTexto' }
+  ];
+
+  actions : ActionButton[] = [
+    { action: TABLE_ACTION.VIEW, label: 'Ver Detalle', icon: 'visibility', color: 'primary' }
+  ];
+
+  tableConfig = {
+    showFilter: true,
+    isPaginable: true,
+    showActions: true,
+  };
 
   constructor(
     private _fb: FormBuilder,
@@ -55,12 +76,7 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
     this.setupFormListeners();
   }
 
-
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.datosListaVenta.paginator = this.paginacionTabla;
   }
 
   aplicarFiltroTabla(event: Event): void {
@@ -89,9 +105,6 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
       fechaInicio = moment(this.formBusqueda.value.fechaInicio).format('DD/MM/YYYY');
       fechaFin = moment(this.formBusqueda.value.fechaFin).format('DD/MM/YYYY');
 
-      console.log('Fecha Inicio:', fechaInicio);
-      console.log('Fecha Fin:', fechaFin);
-
       if (fechaInicio === "Invalid date" || fechaFin === "Invalid date") {
         this._utilidadService.mostrarAlerta("Debe ingresar ambas fechas", "Oops!")
         return;
@@ -102,7 +115,6 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
       next: (data) => {
         if (data.status)
         {
-          console.log(data.value);
           this.datosListaVenta.data = data.value;
         }
         else
@@ -113,6 +125,17 @@ export class HistorialVentaComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  // Maneja las acciones de la tabla
+    onAction(event: TableAction): void {
+      switch (event.action) {
+        case TABLE_ACTION.VIEW:
+          this.verDetalleVenta(event.row);
+          break;
+        default:
+          break;
+      }
+    }
 
   verDetalleVenta(venta: Venta): void {
     this._dialog.open(ModalDetalleVentaComponent, {

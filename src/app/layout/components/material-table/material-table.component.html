@@ -19,8 +19,8 @@
 
           <!-- Caso especial para la columna "Precio" -->
           <ng-template #checkPrice>
-            <ng-container *ngIf="column.def === 'precio'; else defaultColumn">
-              S/. {{ element | columnValue: column }}
+            <ng-container *ngIf="column.def === 'precio'|| column.def === 'total'; else defaultColumn">
+              &#83;&#47;&#46;{{ element | columnValue: column }}
             </ng-container>
           </ng-template>
 
@@ -44,15 +44,17 @@
         </td>
       </ng-container>
 
-      <!-- Fila de encabezado y cuerpo de la tabla -->
       <tr mat-header-row *matHeaderRowDef="tableDisplayColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: tableDisplayColumns;"></tr>
 
-      <tr class="mat-row no-data-row" *matNoDataRow>
-        <td class="mat-cell no-data-cell" [colSpan]="tableDisplayColumns.length">
-          No hay datos que coincidan con el filtro "{{ currentFilterValue }}"
-        </td>
-      </tr>
+      <!-- Mostrar solo si showNoDataRow es true y no hay datos -->
+      <ng-container *ngIf="showNoDataRow && dataSource.filteredData.length === 0">
+        <tr class="mat-row no-data-row" *matNoDataRow>
+          <td class="mat-cell no-data-cell" [colSpan]="tableDisplayColumns.length">
+            No hay datos que coincidan con el filtro "{{ currentFilterValue }}"
+          </td>
+        </tr>
+      </ng-container>
     </table>
   </div>
 
