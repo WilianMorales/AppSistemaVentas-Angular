@@ -1,1 +1,44 @@
-<p>reporte works!</p>
+<h1 style="margin: 20px;">Reporte Venta</h1>
+
+<mat-card style="margin: 20px;">
+  <mat-card-content>
+    <form [formGroup]="formFiltro" (ngSubmit)="buscarVentas()">
+      <div class="campos-formulario">
+
+        <mat-form-field>
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput autocomplete="off" formControlName="fechaInicio" [matDatepicker]="fechaInicio" />
+          <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+          <mat-datepicker #fechaInicio></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fecha Final</mat-label>
+          <input matInput autocomplete="off" formControlName="fechaFin" [matDatepicker]="fechaFin" />
+          <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+          <mat-datepicker #fechaFin></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary"
+
+          type="submit"
+          class="btn-buscar">
+          <mat-icon>search</mat-icon>Buscar
+        </button>
+      </div>
+    </form>
+
+    <button mat-raised-button color="warn"
+      style="margin-bottom: 1.5em;"
+      [disabled]="dataVentaReporte.data.length < 1"
+      (click)="exportExcel()">
+      <mat-icon>feed</mat-icon>Exportar Excel
+    </button>
+
+    <app-material-table
+      [data]="dataVentaReporte.data"
+      [columns]="columnasTabla"
+      [config]="tableConfig" />
+
+  </mat-card-content>
+</mat-card>
