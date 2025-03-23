@@ -19,6 +19,7 @@ import { MaterialTableComponent } from './components/material-table/material-tab
 import { ColumnValuePipe } from './components/material-table/column-value.pipe';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { FilterInputComponent } from './components/filter-input/filter-input.component';
+import { CardInfoComponent } from './components/card-info/card-info.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FilterInputComponent } from './components/filter-input/filter-input.com
     MaterialTableComponent,
     ColumnValuePipe,
     LoadingSpinnerComponent,
-    FilterInputComponent
+    FilterInputComponent,
+    CardInfoComponent
   ],
   imports: [
     CommonModule,
