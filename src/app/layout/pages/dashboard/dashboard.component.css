@@ -1,13 +1,26 @@
 .card-contenedor {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 15px;
   justify-content: center;
   min-height: 100px;
 }
 
+.card-chart {
+  margin-top: 10px;
+}
+
 @media (max-width: 600px) {
+  h1 {
+    font-size: 18px;
+    margin: 10px 20px 0 !important;
+  }
+
+  mat-card {
+    margin: 10px !important;
+  }
+
   .card-contenedor {
     flex-direction: column;
     justify-content: center;

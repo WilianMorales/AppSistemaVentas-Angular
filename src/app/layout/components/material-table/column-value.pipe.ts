@@ -21,6 +21,19 @@ export class ColumnValuePipe implements PipeTransform {
       displayValue = currentValue;
     }
 
+    // Verificamos si la columna es una de las que necesitan formateo
+    const columnsToFormat = ['total', 'precio', 'precioTexto', 'totalTexto', 'totalProducto'];
+
+    if (columnsToFormat.includes(column.def) && !isNaN(Number(displayValue)) && displayValue !== null && displayValue !== '') {
+      let numValue = Number(displayValue);
+
+      // Aseguramos que el número tenga 2 decimales y luego aplicamos el formato de coma
+      let formattedValue = numValue.toFixed(2); // Mantiene siempre 2 decimales
+      formattedValue = formattedValue.replace(',', '.');
+
+      return formattedValue.replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+
     return displayValue;
   }
 }

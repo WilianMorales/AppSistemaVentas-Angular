@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <h1>Sistema Ventas</h1>
+    <h1 *ngIf="!isMobile">Sistema Ventas</h1>
 
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -8,12 +8,15 @@
 
     <span style="flex: 1 1 auto;"></span>
 
-    <mat-icon *ngIf="isMobile" [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
+    <button mat-icon-button *ngIf="isMobile" [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
     <span *ngIf="!isMobile" class="title-label">
       {{ correoUsuario }} | {{ rolUsuario }}
     </span>
 
-    <button mat-icon-button (click)="logout()">
+    <button *ngIf="!isMobile" mat-icon-button (click)="logout()">
       <mat-icon>logout</mat-icon>
     </button>
 
@@ -42,12 +45,16 @@
 
 <!-- Modal de información de usuario para dispositivos móviles -->
 <mat-menu #userMenu="matMenu">
-  <div mat-menu-item class="menu-text">
-    <mat-icon>account_circle</mat-icon>
-    {{ correoUsuario }}
-  </div>
-  <div mat-menu-item class="menu-text">
-    <mat-icon>email</mat-icon>
-    {{ rolUsuario }}
+  <div class="menu-container">
+    <img gOptimizedImage src="assets/images/avatar.svg" class="profile-img" alt="">
+    <div class="user-info">
+      <p class="name">{{ nombre }}</p>
+      <p class="text-info">{{ correoUsuario }}</p>
+      <p class="text-info">{{ rolUsuario }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item class="logout" (click)="logout()">
+      <mat-icon color="warn">power_settings_new</mat-icon> Logout
+    </button>
   </div>
 </mat-menu>

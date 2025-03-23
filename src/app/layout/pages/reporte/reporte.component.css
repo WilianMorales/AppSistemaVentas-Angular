@@ -19,7 +19,16 @@
   margin-right: 10px;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
+  h1 {
+    font-size: 18px;
+    margin: 10px 20px 0 !important;
+  }
+
+  mat-card {
+    margin: 10px !important;
+  }
+
   .campos-formulario{
     flex-direction: column;
     flex-wrap: wrap;

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Chart, registerables } from 'chart.js';
-import { catchError, of } from 'rxjs';
 import { DashboardService } from 'src/app/data/services/dashboard.service';
 import { UtilidadService } from 'src/app/shared/utilidad.service';
 Chart.register(...registerables);
@@ -27,8 +26,8 @@ interface VentaUltimaSemana {
 export class DashboardComponent implements OnInit {
 
   cards: CardData[] = [
-    { icon: 'payments', iconColor: 'accent', title: 'Total Ingresos', subtitle: '$' },
-    { icon: 'sell', iconColor: 'accent', title: 'Total Ventas', subtitle: '$' },
+    { icon: 'payments', iconColor: 'accent', title: 'Total Ingresos', subtitle: '' },
+    { icon: 'sell', iconColor: 'accent', title: 'Total Ventas', subtitle: '' },
     { icon: 'collections_bookmark', iconColor: 'primary', title: 'Total Productos', subtitle: '' }
   ];
 
@@ -67,8 +66,8 @@ export class DashboardComponent implements OnInit {
     this.totalVentas = data.totalVentas;
     this.totalProductos = data.totalProductos;
 
-    this.cards[0].subtitle = `$ ${this.totalIngresos}`;
-    this.cards[1].subtitle = `$ ${this.totalVentas}`;
+    this.cards[0].subtitle = `S/. ${this.totalIngresos}`;
+    this.cards[1].subtitle = `${this.totalVentas}`;
     this.cards[2].subtitle = `${this.totalProductos}`;
   }
 

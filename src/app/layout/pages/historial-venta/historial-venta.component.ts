@@ -45,8 +45,8 @@ export class HistorialVentaComponent implements OnInit {
   ];
 
   columnasTabla: TableColumn[] = [
+    { def: 'numeroDocumento', label: 'N° Doc.', dataKey: 'numeroDocumento' },
     { def: 'fechaRegistro', label: 'Fecha Registro', dataKey: 'fechaRegistro' },
-    { def: 'numeroDocumento', label: 'Numero Documento', dataKey: 'numeroDocumento' },
     { def: 'tipoPago', label: 'Tipo Pago', dataKey: 'tipoPago' },
     { def: 'total', label: 'Total', dataKey: 'totalTexto' }
   ];

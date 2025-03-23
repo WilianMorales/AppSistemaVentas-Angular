@@ -43,19 +43,30 @@ export class LoginComponent {
         if (data.status) {
           // Almacenar la información del usuario en sesión.
           this._utilidadServicio.guardarSesionUsuario(data.value);
-          Swal.fire({
-            icon: 'success',
-            position: 'center',
-            title: 'Bienvenido',
-            timer: 1500,
-            timerProgressBar: true,
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
             showConfirmButton: false,
-            width: 300,
-          })
+            timer: 2000,
+            timerProgressBar: true
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Inicio de sesión exitoso"
+          });
           this._router.navigate(["pages"]);
         } else {
-          // Muestra alerta en caso de credenciales incorrectas.
-          this._utilidadServicio.mostrarAlerta(data.msg, 'Opps!');
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          });
+          Toast.fire({
+            icon: "error",
+            title: data.msg
+          });
         }
       },
       complete: () => {

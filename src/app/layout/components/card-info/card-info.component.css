@@ -7,3 +7,9 @@
   height: 40px;
   width: 40px;
 }
+
+@media screen and (max-width: 767px) {
+  mat-card-title{
+    font-size: 18px;
+  }
+}

@@ -19,7 +19,7 @@
 
           <!-- Caso especial para la columna "Precio" -->
           <ng-template #checkPrice>
-            <ng-container *ngIf="column.def === 'precio'|| column.def === 'total'; else defaultColumn">
+            <ng-container *ngIf="column.def === 'precio'|| column.def === 'total' || column.def === 'totalProducto'; else defaultColumn">
               &#83;&#47;&#46;{{ element | columnValue: column }}
             </ng-container>
           </ng-template>

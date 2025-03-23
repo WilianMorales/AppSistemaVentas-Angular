@@ -36,13 +36,13 @@ export class ReporteComponent {
   dataVentaReporte = new MatTableDataSource<Reporte>([]);
 
   columnasTabla: TableColumn[] = [
+    { def: 'numeroDocumento', label: 'N° Doc.', dataKey: 'numeroDocumento' },
     { def: 'fechaRegistro', label: 'Fecha de registro', dataKey: 'fechaRegistro' },
-    { def: 'numeroDocumento', label: 'Número de documento', dataKey: 'numeroDocumento' },
     { def: 'tipoPago', label: 'Tipo de pago', dataKey: 'tipoPago' },
-    { def: 'total', label: 'Total', dataKey: 'totalVenta' },
+    { def: 'total', label: 'Total Venta', dataKey: 'totalVenta' },
     { def: 'producto', label: 'Producto', dataKey: 'producto' },
-    { def: 'cantidad', label: 'Cantidad', dataKey: 'cantidad' },
     { def: 'precio', label: 'Precio', dataKey: 'precio' },
+    { def: 'cantidad', label: 'Cant.', dataKey: 'cantidad' },
     { def: 'totalProducto', label: 'Total producto', dataKey: 'total' }
   ];
 

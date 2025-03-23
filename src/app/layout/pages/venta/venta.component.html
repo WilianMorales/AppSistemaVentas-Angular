@@ -26,23 +26,22 @@
           <mat-icon matListItemIcon>add</mat-icon> Agregar
         </button>
       </div>
+
+      <div class="campos-formulario">
+        <mat-form-field style="margin-left: 50%">
+          <mat-label>Tipo de pago</mat-label>
+          <mat-select [(value)]="tipoPagoPorDefecto">
+            <mat-option value="Efectivo">Efectivo</mat-option>
+            <mat-option value="Tarjeta">Tarjeta</mat-option>
+            <mat-option value="Yape">Yape</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" class="mat-btn">
+          Total: {{ totalPagar | currency: '&#83;&#47;&#46;' }}
+        </button>
+      </div>
     </form>
-
-    <div class="campos-formulario">
-      <mat-form-field style="margin-left: 50%">
-        <mat-label>Tipo de pago</mat-label>
-        <mat-select [(value)]="tipoPagoPorDefecto">
-          <mat-option value="Efectivo">Efectivo</mat-option>
-          <mat-option value="Tarjeta">Tarjeta</mat-option>
-          <mat-option value="Yape">Yape</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <button mat-raised-button color="accent" class="mat-btn">
-        Total: {{ totalPagar | currency: '&#83;&#47;&#46;' }}
-      </button>
-
-    </div>
 
     <app-material-table
       [data]="datosDetalleVenta.data"

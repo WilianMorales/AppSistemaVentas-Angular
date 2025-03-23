@@ -72,8 +72,6 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  // Método para abrir el menú del usuario cuando se hace clic en el icono
-
   logout(): void {
     this._utilidadService.eliminarSesionUsuario();
     this._router.navigate(['login']);
