@@ -1,0 +1,15 @@
+.card-contenedor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  min-height: 100px;
+}
+
+@media (max-width: 600px) {
+  .card-contenedor {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
