@@ -6,38 +6,29 @@
       <mat-icon>menu</mat-icon>
     </button>
 
+    <span style="flex: 1 1 auto;"></span>
+
+    <mat-icon *ngIf="isMobile" [matMenuTriggerFor]="userMenu">account_circle</mat-icon>
+    <span *ngIf="!isMobile" class="title-label">
+      {{ correoUsuario }} | {{ rolUsuario }}
+    </span>
+
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container style="height: 90vh;">
   <mat-sidenav #sidenav
     [mode]="isMobile ? 'over' : 'side'"
-    [opened]="!isMobile && isOpened"
+    [opened]="!isMobile && isSidebarOpen"
     style="width: 250px;">
     <mat-nav-list>
-      <mat-list-item routerLink="/pages/dashboard">
-        <mat-icon matListItemIcon>dashboard</mat-icon>
-        <div mat-line>DashBoard</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/usuarios">
-        <mat-icon matListItemIcon>group</mat-icon>
-        <div mat-line>Usuarios</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/productos">
-        <mat-icon matListItemIcon>collections_bookmark</mat-icon>
-        <div mat-line>Productos</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/venta">
-        <mat-icon matListItemIcon>currency_exchange</mat-icon>
-        <div mat-line>Venta</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/historial-venta">
-        <mat-icon matListItemIcon>edit_note</mat-icon>
-        <div mat-line>Historial Ventas</div>
-      </mat-list-item>
-      <mat-list-item routerLink="/pages/reportes">
-        <mat-icon matListItemIcon>receipt</mat-icon>
-        <div mat-line>Reportes</div>
+      <mat-list-item *ngFor="let menu of listaMenus" [routerLink]="menu.url" (click)="onMenuItemClick()">
+        <mat-icon matListItemIcon>{{ menu.icono }}</mat-icon>
+        <div mat-line>{{ menu.nombre }}</div>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -48,3 +39,15 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<!-- Modal de información de usuario para dispositivos móviles -->
+<mat-menu #userMenu="matMenu">
+  <div mat-menu-item class="menu-text">
+    <mat-icon>account_circle</mat-icon>
+    {{ correoUsuario }}
+  </div>
+  <div mat-menu-item class="menu-text">
+    <mat-icon>email</mat-icon>
+    {{ rolUsuario }}
+  </div>
+</mat-menu>
