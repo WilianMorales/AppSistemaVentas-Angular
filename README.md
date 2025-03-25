@@ -1,27 +1,66 @@
-# AppSistemaVentasAngular
+# AppSistemaVentas - Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
-## Development server
+![Design preview](./desktop-preview.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 📌 **Descripción del Proyecto**  
 
-## Code scaffolding
+Este proyecto es una aplicación de ventas desarrollada con **Angular Material** y **ASP.NET Core 8**, basada en un curso de YouTube, pero con múltiples mejoras y optimizaciones. Se han agregado nuevas funcionalidades, simplificado el código y mejorado la experiencia de usuario.  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 🚀 **Características Principales**  
+🔹 **Interfaz moderna y responsiva**, adaptada a distintos dispositivos.  
+🔹 **Gestión de ventas, productos y usuarios** con navegación intuitiva.  
+🔹 **Autenticación segura con JWT**, protegiendo el acceso a los recursos.  
+🔹 **Interacción con una API REST** para el manejo eficiente de datos.  
+🔹 **Filtros avanzados en tablas reutilizables**, permitiendo búsquedas dinámicas.  
+🔹 **Generación de reportes y estadísticas** para el análisis de ventas.  
+🔹 **Menús dinámicos y personalizados** según el rol del usuario.  
 
-## Build
+### 💻 **Estructura del Sistema**  
+✔️ **Menú de Usuarios** → Gestión de cuentas y permisos.  
+✔️ **Menú de Productos** → Administración de inventario y stock.  
+✔️ **Menú de Ventas** → Registro y seguimiento de transacciones.  
+✔️ **Menú de Historial de Ventas** → Consulta de registros anteriores.  
+✔️ **Menú de Reportes** → Visualización de estadísticas y gráficos.  
+✔️ **Menú de Dashboard** → Panel con información clave en tiempo real.  
+✔️ **Funciones de Usuario** → Menú dinámico, datos del usuario y opción de cerrar sesión.  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Este repositorio incluye el código fuente y los recursos necesarios para su desarrollo y despliegue.  
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Implemented Dependencies:
+* Angular Material
+```
+ng add @angular/material@15.2.9
+```
+* Material-moment-adapter
+```
+npm i @angular/material-moment-adapter@15.2.9
+```
+* SweetAlert2
+```
+npm install sweetalert2
+```
+* Moment.js
+```
+npm install moment --save
+```
+* Chart.js
+```
+npm install chart.js@3.9.1
+```
+* Xlsx
+```
+npm i xlsx@0.18.5
+```
+* wt-decode
+```
+npm i jwt-decode@3.1.2
+```
 
-## Running end-to-end tests
+<br/>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+> [!NOTE]
+> Install dependencies for running this project
+> `npm install`
