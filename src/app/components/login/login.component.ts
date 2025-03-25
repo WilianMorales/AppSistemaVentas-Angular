@@ -79,6 +79,9 @@ export class LoginComponent {
 
   }
 
-  logout = (): void => localStorage.clear()
+  logout(): void {
+    this._utilidadServicio.eliminarSesionUsuario();
+    this._router.navigate(["login"]);
+  }
 
 }

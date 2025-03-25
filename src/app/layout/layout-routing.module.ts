@@ -9,17 +9,19 @@ import { VentaComponent } from './pages/venta/venta.component';
 import { HistorialVentaComponent } from './pages/historial-venta/historial-venta.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 
+import { authGuard } from '../guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'usuarios', component: UsuarioComponent },
-      { path: 'productos', component: ProductoComponent },
-      { path: 'venta', component: VentaComponent },
-      { path: 'historial-venta', component: HistorialVentaComponent },
-      { path: 'reportes', component: ReporteComponent }
+      { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard], data: { roles: ['Administrador'] } },
+      { path: 'usuarios', component: UsuarioComponent, canActivate: [authGuard], data: { roles: ['Administrador'] } },
+      { path: 'productos', component: ProductoComponent, canActivate: [authGuard], data: { roles: ['Administrador', 'Supervisor'] } },
+      { path: 'venta', component: VentaComponent, canActivate: [authGuard], data: { roles: ['Administrador','Empleado', 'Supervisor'] } },
+      { path: 'historial-venta', component: HistorialVentaComponent, canActivate: [authGuard], data: { roles: ['Administrador','Empleado', 'Supervisor'] } },
+      { path: 'reportes', component: ReporteComponent, canActivate: [authGuard], data: { roles: ['Administrador', 'Supervisor'] } }
     ]
   }
 ];

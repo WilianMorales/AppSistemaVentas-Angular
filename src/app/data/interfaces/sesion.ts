@@ -4,4 +4,5 @@ export interface Sesion {
   email: string;
   idRol: number;
   rolDescripcion: string;
+  token: string;
 }
