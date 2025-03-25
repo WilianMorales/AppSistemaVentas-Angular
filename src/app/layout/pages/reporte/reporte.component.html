@@ -28,12 +28,22 @@
       </div>
     </form>
 
-    <button mat-raised-button color="warn"
+    <!-- Botón para exportar a Excel -->
+    <button mat-raised-button color="accent"
+      class="mat-excel"
       style="margin-bottom: 1.5em;"
       [disabled]="dataVentaReporte.data.length < 1"
       (click)="exportExcel()">
       <mat-icon>feed</mat-icon>Exportar Excel
     </button>
+
+    <!-- Botón para exportar a PDF -->
+    <button mat-raised-button color="warn"
+    style="margin-bottom: 1.5em; margin-left: 10px;"
+    [disabled]="dataVentaReporte.data.length < 1"
+    (click)="exportPDF()">
+    <mat-icon>picture_as_pdf</mat-icon> Exportar PDF
+  </button>
 
     <app-material-table
       [data]="dataVentaReporte.data"

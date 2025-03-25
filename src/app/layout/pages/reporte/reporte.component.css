@@ -19,6 +19,22 @@
   margin-right: 10px;
 }
 
+.mat-excel {
+  background-color: #28a745 !important; /* Color verde tipo Excel */
+  color: white !important; /* Texto blanco */
+}
+
+.mat-excel:hover {
+  background-color: #218838 !important; /* Verde más oscuro al pasar el mouse */
+}
+
+.mat-excel:disabled, .mat-excel[disabled] {
+  background-color: #cfcfcfdc !important; /* Un verde más claro */
+  color: rgba(0, 0, 0, 0.74) !important; /* Texto semi-transparente */
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
 @media screen and (max-width: 767px) {
   h1 {
     font-size: 18px;
