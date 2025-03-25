@@ -58,6 +58,11 @@ npm i xlsx@0.18.5
 ```
 npm i jwt-decode@3.1.2
 ```
+```
+* jsPDF y jsPDF-AutoTable
+```
+npm i jspdf jspdf-autotable
+```
 
 <br/>
 
